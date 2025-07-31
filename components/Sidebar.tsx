@@ -1,6 +1,6 @@
 "use client";
 
-import { useContext, useState } from "react";
+import { Key, useContext, useState } from "react";
 import {
   Activity,
   CircleHelp,
@@ -22,7 +22,7 @@ export default function Sidebar() {
     submit,
   }: any = useContext(Context);
 
-  const loadPrompt = (prompt) => {
+  const loadPrompt = (prompt: string) => {
     setRecentPrompts(prompt);
     submit(prompt);
   };
@@ -42,19 +42,21 @@ export default function Sidebar() {
         {isOpen ? (
           <div className="flex flex-col">
             <p className="mt-8 mb-5">Recent</p>
-            {prevPrompts?.map((item, index) => (
-              <div
-                key={index}
-                onClick={() => loadPrompt(item)}
-                className="my-2 flex items-center gap-2.5 pr-10 rounded-full text-gray-700 cursor-pointer hover:bg-slate-200 p-2 bg-bgPrimaryColor"
-              >
-                <MessageSquare
-                  size={20}
-                  className="cursor-pointer text-softTextColor"
-                />
-                <p>{item?.slice(0, 15)}...</p>
-              </div>
-            ))}
+            {prevPrompts
+              ?.filter((item: string | any[]) => typeof item === "string")
+              .map((item: string, index: Key | null | undefined) => (
+                <div
+                  key={index}
+                  onClick={() => loadPrompt(item)}
+                  className="my-2 flex items-center gap-2.5 pr-10 rounded-full text-gray-700 cursor-pointer hover:bg-slate-200 p-2 bg-bgPrimaryColor"
+                >
+                  <MessageSquare
+                    size={20}
+                    className="cursor-pointer text-softTextColor"
+                  />
+                  <p>{item.slice(0, 15)}...</p>
+                </div>
+              ))}
           </div>
         ) : null}
       </div>
@@ -75,3 +77,5 @@ export default function Sidebar() {
     </div>
   );
 }
+
+
