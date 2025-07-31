@@ -11,7 +11,7 @@ export default function ThemeToggle() {
   return (
     <Popover>
       <PopoverTrigger asChild>
-        <p className="text-softTextColor" variant="outline">
+        <p className="text-softTextColor">
           Settings
         </p>
       </PopoverTrigger>
